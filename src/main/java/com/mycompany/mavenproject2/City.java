@@ -1,5 +1,4 @@
 package com.mycompany.mavenproject2;
-
 import java.io.BufferedReader;  
 import java.io.FileReader;            
 import java.io.*;
@@ -51,17 +50,19 @@ public class City implements DisplayStats{
     
     //CSV Indicies for Property Assessment Data
     private static final int ACCOUNT = 0;
-    private static final int SUITE = 1;
-    private static final int HOUSE = 2;
-    private static final int STREET = 3;
-    private static final int GARAGE = 4;
-    private static final int NEIGHBOURHOODID = 5;
-    private static final int NEIGHBOURHOOD = 6;
-    private static final int WARD = 7;
-    private static final int VALUE = 8;
-    private static final int LATITUDE = 9;
-    private static final int LONGITUDE = 10;
-    private static final int CLASS = 15;
+    private static final int YEAR = 1;
+    private static final int SUITE = 2;
+    private static final int HOUSE = 3;
+    private static final int STREET = 4;
+    private static final int LATITUDE = 5;
+    private static final int LONGITUDE = 6;
+    private static final int NEIGHBOURHOOD = 7;
+    private static final int YEARBUILT = 8;
+    private static final int GARAGE = 9;
+    private static final int ZONING = 10; //in case we wanna do something with this
+    private static final int LOTSIZE = 11;
+    private static final int VALUE = 12;
+    private static final int CLASS = 13;
     
 
     // Lists to hold Properies, Neighbourhoods, Assessed Class and Vlaues
@@ -115,41 +116,64 @@ public class City implements DisplayStats{
         return this.highValue - this.lowValue;
     }
     
-
+//need to add in check for null values when reading in
     /**
      * This takes a filename of a csv file, iterates through the rows and 
      * extracts property information for a given City. 
      * @param filename
      * @throws IOException 
      */
-    public void readPropertyAssessmentCSV(String filename) throws IOException{
-        
+    public void readPropertyAssessmentCSV(String filename) throws IOException{   
         BufferedReader buff = new BufferedReader(new FileReader(filename));
         String row = "";
         buff.readLine();
         //Address propertyAdress;
         while ((row = buff.readLine()) != null){   //returns a Boolean value  
             String[] property = row.split(",");
+
             Address propertyAddress = new Address(property[SUITE], property[HOUSE], property[STREET]);
-            
             //Convert latitidue and longitude to double
             double latitude = Double.parseDouble(property[LATITUDE]);
             double longitude = Double.parseDouble(property[LONGITUDE]);            
             Location propertyLoc = new Location(latitude, longitude);
-            
+
             // account number and value 
             int accountNum = Integer.parseInt(property[ACCOUNT]); 
             double value = Double.parseDouble(property[VALUE]);
+            double year = Double.parseDouble(property[YEAR]);
             
+            // If property has no lotSize it is assigned 0 
+            // ToDO add a catch in the display so shows blank
+            // Make sure to remove the 0's for any calculations
+            double lotSize = 0;
+            if (property[LOTSIZE]== ""){
+                lotSize = 0.0;
+            }
+            else{
+                lotSize = Double.parseDouble(property[LOTSIZE]);
+            }
+            double yearBuilt = 0;
+
+            // If property has no lotSize it is assigned 0 
+            // ToDO add a catch in the display so shows blank
+            // Make sure to remove the 0's for any calculations            
+            if (property[YEARBUILT]== ""){
+                lotSize = 0.0;
+            }
+            else{
+                lotSize = Double.parseDouble(property[YEARBUILT]);
+            }
+
             // get garage value
             boolean garage = false;
             if (property[GARAGE] == "Y"){
                 garage = true;
-            }            
-            Property newProperty;
-            newProperty = new Property(accountNum, propertyAddress, garage, 
-                    property[NEIGHBOURHOOD], property[NEIGHBOURHOODID], 
-                    property[WARD],value, propertyLoc, property[CLASS] );
+            }           
+
+            Property newProperty = new Property(accountNum, propertyAddress, garage, 
+                    property[NEIGHBOURHOOD], lotSize, 
+                    yearBuilt,value, propertyLoc, property[CLASS], year );
+ 
             // Update City Values              
             updateCity(value, newProperty);
             
@@ -161,8 +185,7 @@ public class City implements DisplayStats{
                 neighbourhoodList.set(result,tempNe);
             }
             else{
-                Neighborhood newNe = new Neighborhood(property[NEIGHBOURHOOD], 
-                        property[NEIGHBOURHOODID], value);
+                Neighborhood newNe = new Neighborhood(property[NEIGHBOURHOOD], value);
                 neighbourhoodList.add(newNe);
             }
         }

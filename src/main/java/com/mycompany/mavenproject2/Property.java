@@ -25,11 +25,12 @@ public class Property {
     private Address address;
     private boolean garage;     
     private SimpleStringProperty  neighbourhood;
-    private String neighID;
-    private String ward;
+    private double lotSize;
+    private double yearBuilt;
     private double value;
     private Location location;
     private SimpleStringProperty assessClass;
+    private double year;
     private double latitude;
     private double longitude;
 
@@ -47,15 +48,17 @@ public class Property {
      * @param assessClass   The assessed Class of the property 
      */
     public Property(int accountNum, Address address, boolean garage, 
-            String neighbourhood, String neighID, String ward, double value, 
-            Location location, String assessClass ){
+            String neighbourhood, double lotSize, double yearBuilt, double value, 
+            Location location, String assessClass, double year ){
+        
         this.accountNum = new SimpleIntegerProperty(accountNum);
         this.address = address;
         this.garage = garage;
         this.neighbourhood = new SimpleStringProperty(neighbourhood);
-        this.neighID = neighID;
-        this.ward = ward;
+        this.lotSize = lotSize;
+        this.yearBuilt = yearBuilt;
         this.value = value;
+        this.year = year;
         this.location = location;
         this.latitude = location.getLat();
         this.longitude = location.getLong();
@@ -94,21 +97,6 @@ public class Property {
         return this.neighbourhood.get();
     }
         
-    /**
-    * This returns ID number of the Neighborhood the property is in 
-    * @return neighID String A unique identifier for neighborhoods
-    */
-    public String getNeigID(){
-        return this.neighID;
-    }
-   
-    /**
-    * This returns ID for the Ward the property is in 
-    * @return ward String
-    */
-    public String getWard(){
-        return this.ward;
-    }
     
     /**
     * This returns the value of the property 
@@ -176,21 +164,6 @@ public class Property {
         this.neighbourhood = new SimpleStringProperty(neighbourhood);
     }
         
-    /**
-    * This sets the ID number of the Neighborhood the property is in 
-    * @param neighID String A unique identifier for neighborhoods
-    */
-    public void setNeigID(String neighID){
-        this.neighID = neighID;
-    }
-   
-    /**
-    * This sets ID for the Ward the property is in 
-    * @param ward String
-    */
-    public void setWard(String ward){
-        this.ward = ward;
-    }
     
     /**
     * This sets the value of the property 
@@ -215,6 +188,35 @@ public class Property {
     public void setAssessClass(String assessClass){
         this.assessClass = new SimpleStringProperty(assessClass);
     }
+    
+      public void setLotSize(double lotSize) {
+        this.lotSize = lotSize;
+    }
+
+    public void setYearBuilt(double yearBuilt) {
+        this.yearBuilt = yearBuilt;
+    }
+
+    public void setYear(double year) {
+        this.year = year;
+    }
+
+    public double getLotSize() {
+        return lotSize;
+    }
+
+    public double getYearBuilt() {
+        return yearBuilt;
+    }
+
+    public final double getYear() {
+        return year;
+    }  
+    
+    
+    
+    
+    
     
     /**
      * Class implements equality check 
@@ -245,7 +247,7 @@ public class Property {
         propertyString.append("\nNeighborhood = ");
         propertyString.append(this.neighbourhood);
         propertyString.append("(");
-        propertyString.append(this.ward);
+        propertyString.append(this.year);
         propertyString.append("}");
         propertyString.append("\nLocation = ");
         propertyString.append(this.location);

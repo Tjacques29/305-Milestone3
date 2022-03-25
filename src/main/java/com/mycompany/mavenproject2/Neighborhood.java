@@ -22,17 +22,15 @@ public class Neighborhood implements DisplayStats{
     protected double lowValue = -1; //minium assesed property value in city's properties
     protected double highValue = -1; //maximum assessed property value in city's properties 
     protected String name;
-    private String ID;
+
     
     /**
      * This is the main constructor for the Neighborhood Class
      * @param name
-     * @param ID
      * @param value 
      */
-    public Neighborhood(String name, String ID, double value){
+    public Neighborhood(String name, double value){
         this.name = name;
-        this.ID = ID;
         this.highValue = value;
         this.lowValue = value;
         this.valueList.add(value);

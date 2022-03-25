@@ -18,8 +18,8 @@ package com.mycompany.mavenproject2;
 
 public class Address {
     private String suite = "";
-    private String houseNum;
-    private String streetName;
+    private String houseNum ="";
+    private String streetName ="";
   
     /**
      * This is the main constructor for the Address class

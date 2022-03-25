@@ -106,7 +106,10 @@ public class PropertyTableController implements Initializable {
 
     @FXML
     private TableColumn<Property, String> colNeigh;
-
+    
+    @FXML
+    private TableColumn<Property, String> colYearAss;
+    
     @FXML
     private TableView<Property> propertyTable;
       
@@ -127,6 +130,7 @@ public class PropertyTableController implements Initializable {
         
         // set value display format
         DecimalFormat currency = new DecimalFormat("$0,000.00");
+        DecimalFormat years = new DecimalFormat("0000");
         
         // declare what data will fill each column
         colAccountNum.setCellValueFactory(new PropertyValueFactory<
@@ -145,11 +149,14 @@ public class PropertyTableController implements Initializable {
                 Property, Double>("latitude"));     
         colLong.setCellValueFactory(new PropertyValueFactory<
                 Property, Double>("longitude"));   
-
+        colYearAss.setCellValueFactory(data -> {String year = 
+                years.format(data.getValue().getYear());
+                return new SimpleStringProperty(year);
+        }); 
         
         // Load City Data
         City newCity = new City();
-        String filename = "Property_Assessment_Data.csv";
+        String filename = "Property_Assessment_Data_Historical.csv";
         try{
             newCity.readPropertyAssessmentCSV(filename);
             System.out.println("File: " + filename + " loaded.");

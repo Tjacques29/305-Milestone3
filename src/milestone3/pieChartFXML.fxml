@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.net.URL?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="749.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="milestone3.PieChartFXMLController">
+    <stylesheets>
+        <URL value="@propertytable.css" />
+    </stylesheets>
+    <children>
+      <VBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="8.0" prefHeight="499.0" prefWidth="749.0">
+         <children>
+            <Label text="PIECHART">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <PieChart fx:id="pieChart" />
+         </children>
+      </VBox>
+      <HBox layoutX="447.0" layoutY="469.0" prefHeight="100.0" prefWidth="301.0">
+         <children>
+            <VBox prefHeight="100.0" prefWidth="117.0" spacing="10.0">
+               <children>
+                  <Label text="Neighbourhood">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="neighbourhoodTextField" />
+                  <Button mnemonicParsing="false" onAction="#assessmentClassButton" text="create piechart" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Button layoutX="2.0" layoutY="508.0" mnemonicParsing="false" onAction="#mainSenceButton" text="back to main" />
+   </children>
+</AnchorPane>
